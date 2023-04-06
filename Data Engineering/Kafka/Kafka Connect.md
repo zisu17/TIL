@@ -67,7 +67,15 @@ https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
 "value.converter.transforms": "hoist_id_field": value의 ID를 사용
 
 
+### 커넥터 생성 후 토픽의 데이터가 몽고DB에 전송된 모습
+![image](https://user-images.githubusercontent.com/108858121/230308902-5cdd296d-04a2-4f6a-a21e-8b715064c0c6.png)
+
+
 ## ElasticSearch Sink Connector
+ElasticSearch Sink Connector를 통해 카프카 토픽을 ElaticSearch로 전송할 수 있음
+https://www.confluent.io/hub/confluentinc/kafka-connect-elasticsearch
+해당 링크에서 엘라스틱 서치 싱크 커넥트 다운로드 후 커넥터 생성
+
 ![image](https://user-images.githubusercontent.com/108858121/230304661-bc88f3eb-2b40-4c77-a918-7ce5fb4030f9.png)
 
 "name": "social_elasticsearch_sink_twitter" - 커넥터 인스턴스의 이름을 지정
@@ -107,4 +115,8 @@ https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
 "transforms.ExtractId.type": "org.apache.kafka.connect.transforms.ExtractField$Value" - 변환 작업의 유형을 지정 여기서는 레코드의 값을 사용하여 필드를 추출하는 작업을 사용
 
 "transforms.ExtractId.field": "_id" - 추출할 필드의 이름을 지정 여기서는 _id 필드를 추출 이렇게 하면 Kafka의 레코드 값에서 _id 필드를 가져와 Elasticsearch의 문서 _id로 사용
+
+
+### 커넥터 생성 후 토픽의 데이터가 엘라스틱 서치에 전송된 모습
+<img width="1498" alt="image" src="https://user-images.githubusercontent.com/108858121/230308131-b09dc539-849f-4825-b1df-9d5d5560f123.png">
 
