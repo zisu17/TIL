@@ -24,3 +24,87 @@ MongoDB Sink Connector를 통해 카프카 토픽 데이터를 MongoDB로 전송
 우선적으로 아래 링크에 접속하여 MongoDB Sink Connector 설치합니다.
 
 https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
+
+![image](https://user-images.githubusercontent.com/108858121/230305219-893f4dd5-1a82-4f4a-b6f6-9ca2cc5c3b98.png)
+
+
+"name": 커넥터의 이름 지정
+
+"connector.class": 카프카 커넥터 클래스 지정
+
+"writemodel.strategy": Write 방식 지정, ReplaceOneDefaultStrategy를 사용하여 도큐먼트가 존재하면 대체하도록 함
+
+"document.id.strategy": 도큐먼트의 고유 ID 생성 방식 지정, 카프카 메시지 value 값에서 직접 제공하도록 설정함
+
+"post.processor.chain": 레코드 전송 전 후처리 작업을 적용할 수 있는 프로세서 체인을 지정, DocumentIdAdder를 사용하여 문서 ID를 추가함
+
+"document.id.strategy.overwrite.existing": 기존 ID가 있으면 덮어쓸 것인지 여부 지정, true를 사용하여 덮어쓰도록 설정
+
+"topics": 카프카에서 데이터를 읽을 토픽의 이름 지정
+
+"connection.uri": MongoDB 연결 URI를 지정, 10.70.171.105:27017에 있는 MongoDB에 연결
+
+"database": 데이터를 저장할 MongoDB의 데이터베이스 이름 지정
+
+"collection": 데이터를 저장할 MongoDB의 컬렉션 이름 지정
+
+"tasks.max": 실행할 태스크의 수를 지정, 데이터 양, 하드웨어 성능, 네트워크 대역폭 등 여러 요소에 따라 다르지만 일반적으로 파티션 수만큼 지정하여 각 파티션을 처리할 수 있는 커넥터 태스크를 생성함
+
+"group.id": 컨슈머 그룹의 ID를 지정, 카프카에선 하나의 토픽이 여러 개의 파티션으로 분할될 수 있고 각 파티션은 하나 이상의 컨슈머 그룹에 해당될 수 있음
+
+"max.batch.size": 배치 처리 크기를 지정, 0을 사용하여 제한을 두지 않음
+
+"delete.on.null.values": null 값을 삭제할지 여부 지정, false를 사용하여 삭제하지 않도록 설정
+
+"key.converter": 키의 데이터 형식을 변환할 클래스 지정,StringConverter를 사용하여 문자열 형식을 변환
+
+"key.converter.schemas.enable": 키 스키마 사용 여부 지정, false를 사용하여 스키마를 사용하지 않도록 설정
+
+"value.converter": 값의 데이터 형식을 변환할 클래스를 지정, StringConverter를 사용하여 문자열 형식을 변환
+
+"value.converter.schemas.enable": 값 스키마 사용 여부를 지정, false를 사용하여 스키마를 사용하지 않도록 설정
+
+"value.converter.transforms": "hoist_id_field": value의 ID를 사용
+
+
+## ElasticSearch Sink Connector
+![image](https://user-images.githubusercontent.com/108858121/230304661-bc88f3eb-2b40-4c77-a918-7ce5fb4030f9.png)
+
+"name": "social_elasticsearch_sink_twitter" - 커넥터 인스턴스의 이름을 지정
+
+"connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector" - 사용할 커넥터 클래스를 지정합니다. 여기서는 Elasticsearch Sink 커넥터를 사용
+
+"type.name": "_doc" - Elasticsearch의 mapping type을 지정 _doc은 기본값
+
+"behavior.on.null.values": "IGNORE" - 레코드 값이 null인 경우 무시하도록 설정
+
+"tasks.max": "1" - 최대 태스크 수를 지정합니다. 여기서는 1개의 태스크로 설정
+
+"group.id": "my-group-es" - 커넥터가 속한 컨슈머 그룹의 ID를 지정
+
+"key.ignore": "true" - 레코드 키를 무시하도록 설정
+
+"schema.ignore": "true" - 스키마를 무시하도록 설정
+
+"behavior.on.malformed.documents": "IGNORE" - 문서 형식이 잘못된 경우 무시하도록 설정
+
+"key.converter.schemas.enable": "false" - 키 컨버터 스키마 사용을 비활성화
+
+"value.converter.schemas.enable": "false" - 값 컨버터 스키마 사용을 비활성화
+
+"connection.url": "http://10.70.171.104:9200" - Elasticsearch 클러스터의 URL을 지정
+
+"value.converter": "org.apache.kafka.connect.json.JsonConverter" - 값에 대한 컨버터 클래스를 지정 여기서는 JSON 컨버터를 사용
+
+"key.converter": "org.apache.kafka.connect.storage.StringConverter" - 키에 대한 컨버터 클래스를 지정 여기서는 문자열 컨버터를 사용
+
+"topics": "twitter" - 커넥터가 처리할 Kafka 토픽을 지정
+
+"index.name": "news.twitter" - Elasticsearch에 데이터를 전송할 인덱스의 이름을 지정
+
+"transforms": "ExtractId" - 변환 작업의 이름을 지정
+
+"transforms.ExtractId.type": "org.apache.kafka.connect.transforms.ExtractField$Value" - 변환 작업의 유형을 지정 여기서는 레코드의 값을 사용하여 필드를 추출하는 작업을 사용
+
+"transforms.ExtractId.field": "_id" - 추출할 필드의 이름을 지정 여기서는 _id 필드를 추출 이렇게 하면 Kafka의 레코드 값에서 _id 필드를 가져와 Elasticsearch의 문서 _id로 사용
+
