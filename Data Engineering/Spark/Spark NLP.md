@@ -14,17 +14,9 @@ Spark NLP의 가장 큰 장점은 분산 컴퓨팅 클러스터에서 실행할 
 ## PretrainedPipeline 모델을 불러와 간단한 영문 감성 분석 진행
 
 ```python
-import sys
-
-from pyspark.sql import SparkSession
-from pyspark.ml import Pipeline
-from pyspark.sql.functions import array_contains
-from pyspark.ml import Pipeline, PipelineModel
 
 from sparknlp.annotator import *
 from sparknlp.pretrained import PretrainedPipeline
-
-
 import sparknlp
 
 # SparkSession을 만들고 Spark NLP에 대한 설정으로 간단 구성함
