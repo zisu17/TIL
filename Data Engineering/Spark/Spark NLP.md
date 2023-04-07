@@ -1,3 +1,4 @@
+# Spark NLP
 Spark NLP는 John Snow Labs에서 제작한 Apache Spark를 기반으로 구축된 오픈 소스 자연어 처리 라이브러리입니다.
 
 명명된 엔터티 인식, 감정 분석, 텍스트 분류 등과 같은 고급 NLP 기술을 사용하여 대량의 텍스트 데이터를 처리하기 위한 확장 가능한 분산 인프라를 제공합니다.
@@ -9,12 +10,12 @@ Spark NLP의 가장 큰 장점은 분산 컴퓨팅 클러스터에서 실행할 
 현재 Bitfusion 기한 만료 및 업데이트 이슈로 카프카 스파크 데이터 파이프라인 구축시 Bitfusion과 기존에 있던 감성분석 모델이 사용하지 않고 분산 컴퓨팅 클러스터에 적합한 Spark NLP 라이브러리를 사용하여 감정 분석 하는 방법을 고려하고 있습니다.
 
 
+<br>
 
 
+## PretrainedPipeline 모델을 불러와 간단한 영문 감성 분석 진행
 
-PretrainedPipeline 모델을 불러와 간단한 영문 감성 분석 진행
-
-
+```python
 import sys
 
 from pyspark.sql import SparkSession
@@ -47,7 +48,9 @@ result = pipeline.annotate(testDocs)
 
 print(result)
 
+```
 
+```
 결과값 반환
 
 [{'checked': ['I','felt', 'so', 'disappointed', 'to', 'see', 'this', 'very', 'uninspired', 'film', '.', 'I', 'recommend', 'others', 'to', 'avoid', 'this', 'movie', 'is', 'not', 'good', '.'], 'document': ['I felt so disapointed to see this very uninspired film. I recommend others to awoid this movie is not good.'], 'sentiment': ['positive', 'negative'], 'token': ['I', 'felt', 'so', 'disapointed', 'to', 'see', 'this', 'very', 'uninspired', 'film', '.', 'I', 'recommend', 'others', 'to', 'awoid', 'this', 'movie', 'is', 'not', 'good',
@@ -55,13 +58,17 @@ print(result)
 
 ,{'checked': ['This', 'was', 'movie', 'was', 'awesome', ',', 'everything', 'was', 'nice', '.'], 'document': ['This was movie was amesome, everything was nice.'], 'sentiment': ['negative'], 'token': ['This', 'was', 'movie', 'was', 'amesome', ',', 'everything', 'was', 'nice', '.'], 'sentence': ['This was movie was amesome, everything was nice.']}]
 
+```
 
-John Snow Labs에서 제공하는 한국어 감성 분석 모델 3가지 중 하나
+<br>
+
+
+## John Snow Labs에서 제공하는 한국어 감성 분석 모델
 https://sparknlp.org/2022/09/14/electra_classifier_ko_base_v3_generalized_sentiment_analysis_ko.html
-
 https://huggingface.co/jaehyeong/koelectra-base-v3-generalized-sentiment-analysis
 
 
+```python
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
 
@@ -85,8 +92,10 @@ review_list = [
 for idx, review in enumerate(review_list):
   pred = sentiment_classifier(review)
   print(f'{review}\n>> {pred[0]}')
+  
+```
 
-
+```
 결과값 반환
 
 이쁘고 좋아요~~~씻기도 편하고 아이고 이쁘다고 자기방에 갖다놓고 잘써요~^^
@@ -104,22 +113,11 @@ for idx, review in enumerate(review_list):
 맛은 있는데 가격이 있는 편이에요
 >> {'label': '1', 'score': 0.7503753900527954}
 
-
-
 label 0 : negative review
 label 1 : positive review
 
+```
 
 한국어 감성분석 결과는 긍부정 결과만 제공하고 중립 결과는 제공되지 않음 만약에 중립 결과를 표현하고 싶을 때 score를 활용해야 합니다.
-
 또한 기존의 감성분석에서 제공되던 형태소 분석이 따로 제공되지 않기 때문에 Spark NLP를 활용하여 따로 형태소 분석을 진행해야 할 것으로 보입니다.
 
-
-
-이슈 body 값이 기준 크기를 초과할 경우 분석이 진행되지 않음
-
-[DBP본부] 운영/소개 > Spark NLP > image2023-4-5_20-11-37.png
-
-
-
-모델 성능 테스트 진행 예정
