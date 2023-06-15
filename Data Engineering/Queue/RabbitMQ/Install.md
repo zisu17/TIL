@@ -36,6 +36,8 @@ rabbitmq-server
 
 ![image](https://github.com/zisu17/TIL/assets/108858121/b5a3ed65-ef55-4855-abb9-4aa2951a07fb)
 
+<br>
+
 ## RabbitMQ 관리자 플러그인 활성화
 RabbitMQ 관리자 플러그인은 웹 기반 인터페이스를 제공하여 RabbitMQ 서버를 관리하는 데 도움이 된다. <br>
 터미널에서 다음 명령어를 실행하여 플러그인을 활성화 한다.
@@ -49,7 +51,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 ![image](https://github.com/zisu17/TIL/assets/108858121/3d3c9c43-a676-4bdc-9617-23fd363fce17)
 
-## 기본 정보 로그인
+## Guest 계정 로그인
 RabbitMQ는 기본적으로 guest 계정을 지원한다. <br>
 ID : guest, PW : guest 로 접속할 수 있다. <br>
 단 localhost에서만 접근이 가능하기 때문에 외부에서 접속하기 위해서는 계정을 새로 만들어야 한다.
@@ -78,7 +80,7 @@ rabbitmqctl delete_user zisu17
 
 <br>
 
-## 생성한 관리자 계정으로 접속
+## 관리자 계정 로그인
 생성한 관리자 계정으로 웹 인터페이스에 접속하면 아래와 같은 관리자 페이지를 확인할 수 있다.
 
 ![image](https://github.com/zisu17/TIL/assets/108858121/af109cbf-9870-4600-87db-2c9728b8ee79)
