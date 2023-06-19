@@ -1,4 +1,8 @@
 # AMQP
+
+![image](https://github.com/zisu17/TIL/assets/108858121/a253d859-62c1-4cf7-818e-b7bb467ee80d)
+
+
 AMQP는 Advanced Message Queuing Protocol의 약자로 메시지 큐를 사용하여 분산 시스템 간에 비동기적으로 데이터를 교환하기 위한 프로토콜이다. AMQP는 응용 프로그램, 서비스 및 기타 구성 요소 사이의 신뢰성 높은 메시징 시스템을 구축하기 위해 설계되었다.
 
 AMQP는 다양한 플랫폼 및 언어 간의 상호 운용성을 제공하며 Publish-Subscribe, Message Queue 및 Request-Reply와 같은 패턴을 지원한다. AMQP는 높은 신뢰성, 확장성, 보안 및 성능을 제공하는 다양한 기능을 갖추고 있다.
