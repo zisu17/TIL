@@ -34,8 +34,8 @@ java –version
 ```
 
 EC2 인스턴스 생성할 때 Java를 설치합니다.
+stand alone으로 Kafka 구성
 ```bash
-stand alone으로 Kafka를 구성할 때 사용할 수 있습니다.
 #!/bin/bash 
 yum install -y java-1.8.0-openjdk-devel.x86_64
 ```
@@ -50,7 +50,7 @@ tar xvf kafka_2.13-3.0.0.tgz
 
 Kafka 환경 시작하기
 ```bash
-ln -s kafka_2.13-3.0.0 kafka  # 키보드에서 직접 입력합니다.
+ln -s kafka_2.13-3.0.0 kafka
 cd kafka
 ```
 
